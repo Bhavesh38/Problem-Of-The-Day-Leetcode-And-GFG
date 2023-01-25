@@ -1,0 +1,23 @@
+class Solution {
+  public:
+    void solve(string s,int &ans,int &cnt)
+    {
+        if(!s.length()) return ;
+        if(cnt==0 && s.substr(0,s.length()/2)==s.substr(s.length()/2))
+        {
+            cnt=1;
+            ans+=s.length()/2+1;
+            return ;
+        }
+        else
+        {
+            ans++;
+            solve(s.substr(0,s.length()-1),ans,cnt);
+        }
+    }
+    int minOperation(string s) {
+        int ans=0,cnt=0;
+        solve(s,ans,cnt);
+        return ans;
+    }
+};
