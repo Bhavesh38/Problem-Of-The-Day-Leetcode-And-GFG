@@ -1,0 +1,39 @@
+class Solution
+{
+  public:
+  long long dfs(int i, int s, vector<int>&Edge,vector<int>&vis,vector<int>&dfvis)
+  {
+        if(vis[i] || dfvis[i])
+            {
+                if(i==s) return 0;
+                else return -1;
+            }
+        dfvis[i] = 1;
+        vis[i] = 1;
+        if(Edge[i]==-1)
+            return -1;
+        long long k = dfs(Edge[i],s,Edge,vis,dfvis);
+        vis[i] = 0;
+        if(k==-1)
+        {
+            dfvis[i] = 0;
+            return -1;
+        }
+        else
+            return k+i;
+  }
+  long long largestSumCycle(int N, vector<int> Edge)
+  {
+    vector<int> vis(N,0),dfvis(N,0);
+    long long ans=-1;
+    for(int i=0;i<N;i++)
+    {
+        if(!dfvis[i])
+        {
+            long long k = dfs(i,i,Edge,vis,dfvis);
+            ans = max(ans,k);
+        }
+    }
+    return ans; 
+  }
+};
