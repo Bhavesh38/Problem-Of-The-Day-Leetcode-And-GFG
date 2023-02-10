@@ -1,0 +1,19 @@
+class Solution{
+public:
+    int maxInstance(string s){
+        unordered_map<char,int> m;
+        for(auto i:s){
+            m[i]++;
+        }
+        
+        int ans=INT_MAX;
+        //balloon
+        ans=min(ans,m['b']);
+        ans=min(ans,m['a']);
+        ans=min(ans,m['l']/2);
+        ans=min(ans,m['o']/2);
+        ans=min(ans,m['n']);
+        return ans;
+        
+    }
+};
