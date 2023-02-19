@@ -1,0 +1,29 @@
+class Solution {
+  public:
+    void traversal(Node* root,vector<int> &inorder){
+        if(!root){
+            return;
+        }
+        traversal(root->left,inorder);
+        inorder.push_back(root->data);
+        traversal(root->right,inorder);
+    }
+    int i=0;
+    void solve(Node* &root,vector<int> &inorder){
+        if(!root){
+            return;
+        }
+        solve(root->left,inorder);
+        root->data=inorder[i++];
+        solve(root->right,inorder);
+        
+    }
+    struct Node *correctBST(struct Node *root) {
+        // code here
+        vector<int> inorder;
+        traversal(root,inorder);
+        sort(inorder.begin(),inorder.end());
+        solve(root,inorder);
+        return root;
+    }
+};
