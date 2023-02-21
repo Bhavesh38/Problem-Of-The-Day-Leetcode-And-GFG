@@ -1,0 +1,39 @@
+class Solution{   
+public:
+    int minIteration(int N, int M, int x, int y){    
+        // code here
+        vector<vector<int>> matrix(N,vector<int> (M,0));
+        matrix[x-1][y-1]=1;
+        queue<pair<pair<int,int>,int>> p;
+        p.push({{x-1,y-1},0});
+        int ans=0;
+        while(!p.empty()){
+            int n=p.size();
+          
+            bool pass=false;
+            for(int i=0;i<n;i++){
+                int x1=p.front().first.first;
+                int y1=p.front().first.second;
+                int distance=p.front().second;
+                p.pop();
+                
+                int pathX[4]={-1,1,0,0};
+                int pathY[4]={0,0,-1,1};
+                for(int j=0;j<4;j++){
+                    int nx=x1+pathX[j];
+                    int ny=y1+pathY[j];
+                    
+                    if(nx>=0 && nx<N && ny>=0 && ny<M && matrix[nx][ny]==0){
+                        matrix[nx][ny]=1;
+                        p.push({{nx,ny},distance+1});
+                        pass=true;
+                    }
+                }
+            }
+            if(pass){
+                ans++;
+            }
+        }
+        return ans;
+    }
+};
