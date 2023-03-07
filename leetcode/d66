@@ -1,0 +1,39 @@
+class Solution {
+public:
+    bool isPossible(vector<int> &weights,int mid,int days){
+        int cntDays=1;
+        int sum=0;
+        for(auto it:weights){
+            if(sum+it>mid){
+                cntDays++;
+                sum=0;
+            }
+            sum+=it;
+        }
+        if(cntDays>days){
+            return false;
+        }else{
+            return true;
+        }
+    }
+    int shipWithinDays(vector<int>& weights, int days) {
+        int left=0;
+        int right=0;
+        for(auto it:weights){
+            left=max(left,it);
+            right+=it;
+        }
+
+        int ans=right;
+        while(left<=right){
+            int mid=left+(right-left)/2;
+            if(isPossible(weights,mid,days)){
+                ans=mid;
+                right=mid-1;
+            }else{
+                left=mid+1;
+            }
+        }
+        return ans;
+    }
+};
