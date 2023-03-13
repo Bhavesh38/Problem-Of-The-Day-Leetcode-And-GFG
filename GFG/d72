@@ -1,0 +1,25 @@
+class Solution {
+  public:
+    long long maxPossibleValue(int n,vector<int> a, vector<int> b) {
+        long long res = 0;
+        int count = 0;
+        int mini = INT_MAX;
+        
+        for(int i=0; i<n; i++){
+            int stick = a[i];
+            int unit = b[i];
+            if(unit > 1){
+                res += 2 * (unit / 2) * stick;
+                count += (unit / 2);
+                mini = min(mini, stick);
+            }
+        }
+        
+        if(count % 2 == 1){
+            res -= (2*mini);
+        }
+        
+        return res;
+        
+    }
+};
