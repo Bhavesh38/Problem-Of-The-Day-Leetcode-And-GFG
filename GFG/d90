@@ -1,0 +1,24 @@
+class Solution
+{
+    public:
+        vector <int> lexicographicallyLargest(vector <int> &a,int n)
+        {
+            // Code here
+            int low=0,high=1;
+            while(low<n && high <n){
+                if((a[high-1]+a[high])%2==0){
+                    high++;
+                    // cout<< high<< endl;
+                }else{
+                    sort(a.begin()+low,a.begin()+high,greater<int>());
+                    low=high;
+                    high+=1;
+                }
+            }
+            if(high-low>0){
+                sort(a.begin()+low,a.begin()+high,greater<int>());
+
+            }
+            return a;
+        }
+};
