@@ -1,0 +1,15 @@
+class Solution
+{
+
+public:
+    int xmod11(string x)
+    {
+       // code here
+       int num=0;
+       for(auto it:x){
+           num=(num*10+(it-'0'))%11;
+       }
+       return num;
+    
+    }
+};
