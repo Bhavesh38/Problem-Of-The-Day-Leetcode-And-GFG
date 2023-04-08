@@ -1,0 +1,31 @@
+class Solution {
+  public:
+    vector<int> makeBeautiful(vector<int> arr) {
+        // code here
+        stack<int> st;
+        for(auto it:arr){
+            if(it<0){
+                if(st.empty()==false && st.top()>=0){
+                    st.pop();
+                }
+                else{
+                    st.push(it);
+                }
+            }else{
+                if(!st.empty() && st.top()<0){
+                    st.pop();
+                }else{
+                    st.push(it);
+                }
+            }
+        }
+        
+        vector<int> ans(st.size(),0);
+        for(int i=st.size()-1;i>=0;i--){
+            ans[i]=st.top();
+            st.pop();
+        }
+        return ans;
+        
+    }
+};
