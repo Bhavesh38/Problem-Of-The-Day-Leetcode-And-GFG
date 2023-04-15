@@ -1,0 +1,30 @@
+bool static cmp(pair<int,int>a , pair<int,int>b){
+    if(a.first!=b.first){
+        return a.first<b.first;
+    }
+    return a.second<b.second;
+}
+class Solution {
+  public:
+    int totalTime(int n, vector<int> &arr, vector<int> &time) {
+
+       // store the elements in a vector in the forms of a pair
+        vector<pair<int,int>>v;
+        for(int i =0; i<arr.size() ; i++){
+            v.push_back({arr[i] ,time[i]});
+        }
+
+        //sort the vector acc to question
+        sort(v.begin() , v.end() ,cmp);
+        int ans =0;
+        for(int i = 0; i< v.size()-1 ; i++){
+            if(v[i].first!=v[i+1].first){
+                ans++;
+            }
+            else{
+                ans+= time[v[i].first -1];  // -1 is  because we have to take the prev
+            }
+        }
+        return ans;
+    }
+};
