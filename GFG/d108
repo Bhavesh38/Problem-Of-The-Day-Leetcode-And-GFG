@@ -1,0 +1,41 @@
+class Solution {
+public:
+    int minSize=INT_MAX;
+    
+    //return vector size of 4 { size, sum, minBound, maxBound }
+    
+    vector<int> helper(int target, Node* curr){
+        
+        if(curr==NULL) return {0, 0, INT_MAX, INT_MIN};
+        
+        vector<int> leftSub=helper(target, curr->left);
+        
+        vector<int> rightSub=helper(target, curr->right);
+        
+        if(curr->data > leftSub[3] && curr->data < rightSub[2]){
+            
+            int sum=leftSub[1]+rightSub[1]+curr->data;
+            
+            int length=leftSub[0]+rightSub[0]+1;
+            
+            if(target==sum){
+                
+                minSize=min(minSize, length);
+                
+            }
+            
+            return {length, sum, min(curr->data, leftSub[2]), max(curr->data, rightSub[3])};
+        }
+        
+        return {0, 0, INT_MIN, INT_MAX};
+    }
+    int minSubtreeSumBST(int target, Node *root) {
+        // code here
+        helper(target, root);
+        
+        if(minSize==INT_MAX) return -1;
+        
+        return minSize;
+    }
+};
+
