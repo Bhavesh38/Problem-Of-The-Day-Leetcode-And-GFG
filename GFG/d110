@@ -1,0 +1,69 @@
+class Solution{
+
+    public:
+    void mark_parent(Node* root,unordered_map<Node*,Node*> &parent,Node* &bheemNode,int home){
+         queue<Node*> p;
+         p.push(root);
+         Node* temp=new Node();
+         temp->data=-1;
+         parent[root]=temp;
+         while(!p.empty()){
+             auto node=p.front();
+             p.pop();
+             if(node->data==home){
+                 bheemNode=node;
+             }
+             if(node->left){
+                 parent[node->left]=node;
+                 p.push(node->left);
+             }
+             
+             if(node->right){
+                 parent[node->right]=node;
+                 p.push(node->right);
+             }
+         }
+    }
+    int ladoos(Node* root, int home, int k)
+    {
+        unordered_map<Node*,Node*> parent;
+        Node* bheemNode=NULL;
+        mark_parent(root,parent,bheemNode,home);
+        int ans=0;
+        if(bheemNode==NULL){
+            return ans;
+        }
+        queue<pair<Node*,int>> p;
+        unordered_map<Node*,bool> vis;
+        p.push({bheemNode,0});
+        while(!p.empty()){
+            Node* node=p.front().first;
+            int dis=p.front().second;
+            p.pop();
+            
+            if(dis>k){
+                break;
+            }
+            
+            ans+=node->data;
+            vis[node]=true;
+            
+            if(node->left && vis[node->left]==false){
+                p.push({node->left,dis+1});
+            }
+            
+            if(node->right && !vis[node->right]){
+                p.push({node->right,dis+1});
+            }
+            
+            if(parent[node] && parent[node]->data !=-1 && !vis[parent[node]]){
+                p.push({parent[node],dis+1});
+            }
+            
+            
+        }
+        return ans;
+    }
+
+
+};
