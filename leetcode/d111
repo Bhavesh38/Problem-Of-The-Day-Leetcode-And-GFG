@@ -1,0 +1,42 @@
+class Solution {
+public:
+    int solve(int index,int p,int g,int n,int minProfit, vector<int>& group, vector<int>& profit,vector<vector<vector<int>>> &dp){
+        if(g>n){
+            return 0;
+        }
+
+        if(index>=profit.size()){
+            if(p>=minProfit && g<=n){
+                return 1;
+            }else{
+                return 0;
+            }
+        }
+        if(dp[index][p][g]!=-1){
+            return dp[index][p][g]%1000000007;
+        }
+        int took=0;
+        if(g+group[index]<=n){
+            took=solve(index+1,min(minProfit,p+profit[index]),g+group[index],n,minProfit,group,profit,dp)%1000000007;
+        }
+        
+        
+        int notTook=solve(index+1,p,g,n,minProfit,group,profit,dp)%1000000007;
+
+        return dp[index][p][g]=(notTook+took)%1000000007;
+
+    }
+    int profitableSchemes(int n, int minProfit, vector<int>& group, vector<int>& profit) {
+        vector<vector<vector<int>>> dp(profit.size()+1,vector<vector<int>> (minProfit+1,vector<int> (n+1,-1)));
+        // for(int p=minProfit;p<=10001;p++){
+        //     for(int g=0;g<=n;g++){
+        //         dp[profit.size()][p][g]=1;
+        //     }
+        // }
+
+        // for(int index=n-1;index>=0;index--){
+        //     for(int p=100)
+        // }
+        return solve(0,0,0,n,minProfit,group,profit,dp)%1000000007;
+    }
+};
