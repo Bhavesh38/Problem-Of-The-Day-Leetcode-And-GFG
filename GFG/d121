@@ -1,0 +1,29 @@
+class Solution{
+public:
+unordered_map<string,int> m;
+    string solve(Node* root){
+        if(!root){
+            return "";
+        }
+        
+        string temp=to_string(root->data);
+        
+        for(auto it:root->children){
+            temp+=('#' + solve(it));
+        }
+        
+        m[temp]++;
+        return temp;
+    }
+    int duplicateSubtreeNaryTree(Node *root){
+        // Code here
+        
+        solve(root);
+        
+        int ans=0;
+        for(auto it: m){
+            ans+=(it.second>1);
+        }
+        return ans;
+    }
+};
