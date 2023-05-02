@@ -1,0 +1,21 @@
+class Solution {
+public:
+    int arraySign(vector<int>& nums) {
+        int p=0;
+        int n=0;
+        int z=0;
+        for(auto i:nums){
+            p+=(i>0);
+            n+=(i<0);
+            z+=(i==0);
+        }
+
+        if(z>0){
+            return 0;
+        }
+        if(n%2!=0){
+            return -1;
+        }
+        return 1;
+    }
+};
